@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .navbar-right {
+            float: right !important;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    </style>
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <a class="navbar-brand" href="/">
+            <span class="hidden-xs">Book Store</span>
+            <div class="visible-xs" style="margin-top:-0.5em;font-weight:bold;">Book</div>
+            <div class="visible-xs" style="font-weight:bold;">Store</div>
+        </a>
+        @Html.Action("Summary", "Cart")
+    </div>
+    <div class="visible-xs">
+        @Html.Action("Menu", "Nav", new { horizontalLayout=true })
+
+    </div>
+    <div class="row panel">
+        <div id="categories" class="col-sm-3 hidden-xs">
+            @Html.Action("Menu", "Nav")
+        </div>
+        <div class="col-sm-8 col-xs-12">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="row panel text-center">
+        <div class="col-xs-12">
+            <h3>All CopyRights&copy; Reserved For <b>Eng Muhammad Awadallah&reg;</b></h3>
+        </div>
+    </div>
+
+</body>
+
+
+</>
+</html>

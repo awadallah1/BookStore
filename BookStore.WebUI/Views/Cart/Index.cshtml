@@ -1,0 +1,77 @@
+﻿@model CartIndexViewModel
+@{
+    ViewBag.Title = "Book Store : Your Cart";
+}
+<style>#carttable td {vertical-align:middle;}</style>
+@if (Model.Cart.Lines.Count() == 0)
+{
+    <h2>Sorry Your Cart Is Empty <a href="/" class="btn btn-warning">Go And Fill It Please</a></h2>
+}
+else
+{
+<h2>Your Cart</h2>
+<table id="carttable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Item
+            </th>
+            <th class="text-right">
+                Price
+            </th>
+            <th class="text-right">
+                Subtotal
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-left">
+                    @Line.Quantity
+                </td>
+                <td class="text-left">
+                    @Line.Book.Title
+                </td>
+                <td class="text-right">
+                    @Line.Book.Price
+                </td>
+                <td class="text-right">
+                    @((Line.Quantity * Line.Book.Price).ToString("c"))
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        <div class="pull-right">
+                            @Html.HiddenFor(x => x.Returnurl)
+                            @Html.Hidden("isbn", Line.Book.ISBN)
+                            <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
+                        </div>
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+
+    </tfoot>
+
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href=@Model.Returnurl>Continue Shopping</a>
+    @Html.ActionLink("CheckOut Now", "Checkout", null, new { @class = "btn btn-primary" })
+</div>
+}
+

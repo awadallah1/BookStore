@@ -1,0 +1,29 @@
+﻿@model Dictionary<string, int>
+    
+<div data-role="navbar">
+    <ul>
+        @foreach (var link in Model)
+        {
+            <li>
+               @Html.RouteLink(link.Key,new
+          {
+              controller ="book",
+              action="list",
+              category=link.Key,
+              page=1
+          },
+          new
+          {
+              data_transation="fade",
+              @class=(link.Key==ViewBag.selectedCategory? "ui-btn-active":null)
+
+          }
+          )
+            </li>
+           
+
+
+        }
+    </ul>
+
+</div>

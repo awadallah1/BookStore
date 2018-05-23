@@ -1,0 +1,14 @@
+﻿@model BooksListViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+
+@foreach (var Book in Model.Books)
+{
+    @Html.Partial("BookSummary",Book)
+    
+}
+<div class="pager">
+    @Html.PageLinks(Model.pagingInfo, x => Url.Action("List", new { page = x , category = Model.CurrentCategory }))
+</div>

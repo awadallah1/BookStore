@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   @* <title>@ViewBag.Title</title>*@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>@*Should be at first b4 jquery.mobile*@
+    <link href="~/Content/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.mobile-1.4.5.min.js"></script>
+    
+   
+    
+</head>
+<body>
+    <div data-role="page" id="page1">
+        <div data-theme="b" data-role="header" data-position="fixed">
+            <div style="text-align:center;max-height:2em;padding-top:0.1em;margin-bottom:0.6em;" data-role="content">
+            <a href="/" style="text-decoration : none;color:white;"><h3>BooksStore</h3></a></div>
+            @Html.Action("Menu", "Nav")
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-divider-theme="b" data-inset="false">
+                @RenderBody()
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

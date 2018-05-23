@@ -1,0 +1,130 @@
+﻿@model IEnumerable<BookStore.Domain.Entities.Book>
+
+@{
+    ViewBag.Title = "Administration|Index";
+    Layout = "~/Views/Shared/_ِAdminLayout.cshtml";
+}
+
+@*<h2>Administration|Books List</h2>*@
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Title)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ISBN }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ISBN }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ISBN })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>All Books</h2>
+
+    </div>
+    <div>
+
+        @using (Html.BeginForm("index", "Admin", FormMethod.Get, new { @class = "navbar-form  pull-left" }))
+        {
+            SelectList cats = Model.OrderBy(b => b.Category).Select(b => b.Category).Distinct() as SelectList;
+            @Html.Hidden("Cat",cats)
+            <div class="form-group form-inline">
+                <label>Filter By Category :</label>
+                @{
+                    if (ViewBag.Category != null)
+                    {
+                        @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category, "All", new { @class = "dropdown form-control" })
+                    }
+                    else
+                    {
+                        
+                        @Html.DropDownList("Cat")
+
+                    }
+                }
+
+
+            </div>
+               <input class="btn btn-default" type = "submit" value = "Filter" />
+                    }
+        <form name="search" action="Index" id="search" method="get" class="navbar-form pull-left">
+            <div class="form-group form-inline">
+                <input type="text" placeholder="Enter any word to search" name="searchvalue" id="searchvalue" class="form-control" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-default" />
+        </form>
+    </div>
+
+
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-right">ID</th>
+                <th>Title</th>
+                <th class="text-right">Price</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-right">@item.ISBN</td>
+                    <td>@Html.ActionLink(item.Title, "Edit", new { item.ISBN })</td>
+                    <td class="text-right">@item.Price.ToString("c")</td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("Delete", "Admin"))
+                        {
+                            @Html.Hidden("ISBN", item.ISBN)
+                            @Html.Hidden("searchvalue", Request.QueryString["searchvalue"])
+                            @Html.Hidden("category",Request.QueryString["Category"])
+                            <input type="submit"
+                                   class="btn btn-warning btn-xs"
+                                   value="Delete" />
+                        }
+                        @*@Html.ActionLink("Delete","Delete",new { id = item.ISBN},
+                            new { @class="btn btn-danger btn-xs"})*@
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        @Html.ActionLink("Add a new Book", "Create", null,
+       new { @class = "btn btn-primary" })
+    </div>
+</div>
+

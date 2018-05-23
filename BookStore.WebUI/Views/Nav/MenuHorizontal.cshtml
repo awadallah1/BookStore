@@ -1,0 +1,52 @@
+﻿@model Dictionary<string, int>
+<style>
+    .vcenter {
+        display: inline-block;
+        margin-top: 3px;
+        float: none;
+    }
+
+    .Gleft {
+        text-align: left;
+        margin-left: 5px;
+    }
+
+    .GleftCenter {
+        text-align: center;
+        margin-left: 5px;
+    }
+</style>
+<div class="btn-group btn-group-sm btn-group-justified">
+@Html.ActionLink("Home", "List", "Book", null,
+    new { @class = "btn btn-default btn-sm GleftCenter" })
+
+@foreach (var link in Model)
+{
+    <a href="@Url.Action("List", "Book",new
+    {
+        Controller = "Book",
+        Action = "List",
+        category = link.Key,
+        page = 1
+    })" class="btn btn-default btn-sm @((link.Key==ViewBag.selectedCategory?" btn-primary":""))">
+        @link.Key
+        <span class="badge pull-right">@link.Value</span>
+    </a>
+}
+</div>
+   
+
+    @*@Html.RouteLink(link,
+        new
+        {
+            Controller = "Book",
+            Action = "List",
+            category = link,
+            page = 1
+        },
+        new { @class ="btn-block btn btn-default btn-lg" +(link==ViewBag.selectedCategory?" btn-primary":"")})*@
+
+
+
+   
+

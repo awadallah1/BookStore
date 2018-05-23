@@ -1,0 +1,19 @@
+﻿@model BookStore.Domain.Entities.Cart
+    
+<div class="navbar-right hidden-xs">
+            @Html.ActionLink("Check Out","Index", new { returnUrl= "/" },
+           new {@class= "btn btn-default navbar-btn", @style="margin-left:4px; margin-right:1.5em;",@id="test" })
+
+</div>
+<div class="navbar-right visible-xs">
+    <a href=@Url.Action("Index","Cart",new {returnUrl= Request.Url.PathAndQuery})
+           class = "btn btn-default navbar-btn" style = "margin-left:4px; margin-right:1.5em;">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+           </a>
+   
+</div>
+<div class="navbar-text navbar-right">
+    <b class="hidden-xs">Your Cart: </b>@Model.Lines.Sum(x => x.Quantity) Book(s), @Model.Lines.Sum(x => x.Book.Price).ToString("c")
+    
+</div>
+

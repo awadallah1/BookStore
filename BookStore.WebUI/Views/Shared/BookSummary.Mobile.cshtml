@@ -1,0 +1,17 @@
+﻿@model BookStore.Domain.Entities.Book
+<div data-role="collapsible" data-collapsed="false" data-content-theme="c">
+
+    <h2>@Model.Title</h2>
+    <div class="ui-grid-a">
+        <div class="">@Model.Description</div>
+        <div style="float:right;margin-top:1.25em;"><strong>@Model.Price.ToString("c")</strong></div>
+        <div style="text-align:left;">
+            @using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                @Html.HiddenFor(x => x.ISBN)
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" data-inline="true" data-mini="false" value="Add To Cart" />
+            }
+        </div>
+    </div>
+</div>
