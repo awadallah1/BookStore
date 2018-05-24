@@ -30,7 +30,7 @@ namespace BookStore.WebApi.Controllers
         // GET: api/Books/5
         // GET: api/Books/Books/5
         [ResponseType(typeof(Book))]
-        [ActionName("Books")]
+        [ActionName("Search")]
         public IHttpActionResult GetBook(int id)
         {
             Book book = db.Books.Find(id);
@@ -56,6 +56,7 @@ namespace BookStore.WebApi.Controllers
         }
 
         // PUT: api/Books/5
+       
         [ResponseType(typeof(void))]
         public IHttpActionResult PutBook(int id, Book book)
         {
